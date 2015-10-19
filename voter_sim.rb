@@ -13,23 +13,32 @@ EOP
 require "./voter_sim_classes"
 include VoterSimClasses
 
+#These two arrays keep track of the Voter and Politician instances.
 @voters = []
 @politicians = []
+
+#The following instance variables keep track of the number of votes for each
+#candidate
 @dem_votes = 0
 @rep_votes = 0
 
+#Method used to exit the program.
 def bye
   puts "BYEEEEE!"
 end
 
+#Method used for acquiring votes for democrats.
 def dem_votes
   @dem_votes = @dem_votes + 1
 end
 
+#Method used for acquiring votes for republicans.
 def rep_votes
   @rep_votes = @rep_votes + 1
 end
 
+#Method that is used for tallying up the vote and declaring
+#the winner.
 def tally
   @dem_votes + @rep_votes
   p "Democrat votes:#{@dem_votes} Republican votes: #{@rep_votes}"
@@ -45,8 +54,9 @@ def tally
   end
 end
 
-
+#Initialization of the voting process.
 def vote
+#Politicians vote for their own party.
   @politicians.each do |x|
    if x.politician_party == "Democrat"
      dem_votes
@@ -55,6 +65,8 @@ def vote
    end
  end
 
+#Determines corresponding political view to political party based on random
+#selection.
   @voters.each do |x|
     roll = rand(100)
   case x.voter_political_view
@@ -95,7 +107,9 @@ tally
 main_menu
 end#ends vote
 
+#Allows user to update Politican and Voter instances.
 def update
+  #Updates a Voter instance.
   puts "Would you like to update a (p)olitician or
   a (v)oter?"
   update_person = gets.chomp.capitalize
@@ -150,6 +164,7 @@ def update
     end
   end
 
+  #Updates a Politician instance
   elsif update_person == "P"
     puts "What is the name of the politician you want to
     update?"
@@ -179,6 +194,7 @@ def update
   end#Ends the update_person
 end#Ends update
 
+#Creates a list of Politicians and Voters along with their political views.
 def list
   puts "List politicians and voters"
   @voters.each do |x|
@@ -195,6 +211,7 @@ def list
   main_menu
 end
 
+#Method for creating Voter instances
 def create_voter
 puts "Please enter a voter's name."
 voter_name = gets.chomp.capitalize
@@ -226,7 +243,7 @@ p "#{voter_name} has been added to the voters list."
 main_menu
 end
 
-
+#Method for creating Politician instances.
 def create_politician
   puts "Please enter politican's name."
   politician_name = gets.chomp.capitalize
@@ -251,7 +268,7 @@ def create_politician
  main_menu
 end
 
-
+#Method for user to input if they want to create a Politician or Voter instance.
 def create
     puts "Would you like to create a (P)olitician or (V)oter?"
     create_answer = gets.chomp.capitalize
@@ -268,7 +285,7 @@ def create
   end
 end
 
-
+#Method creating the main_menu to be referenced throughout program.
 def main_menu
   puts <<-EOP
   "What would you like to do?"
